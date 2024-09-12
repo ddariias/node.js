@@ -83,6 +83,19 @@ app.put('/users/:userId', async (req, res) => {
         const user = users.findIndex(user => user.id === userId)
         const {name, email, password} = req.body
 
+        if (name.length < 2){
+            return res.status(400).send('User name should be more than 2 symbols')
+        }
+        if (!email.includes('@')){
+            return res.status(400).send('Email should be contain @')
+        }
+        if (password.length > 6){
+            return res.status(400).send('Password should be more than 6')
+        }
+
+        if (!user){
+            return res.status(404).send('User not found')
+        }
         users[user].name = name
         users[user].email = email
         users[user].password = password
@@ -101,6 +114,10 @@ app.delete('/users/:userId', async (req, res) => {
         const users = await func.read()
         const userId = Number(req.params.userId)
         const user = users.findIndex(user => user.id === userId)
+
+        if (!user){
+            return res.status(404).send('User not found')
+        }
 
         users.splice(user, 1)
         await func.write(users)
