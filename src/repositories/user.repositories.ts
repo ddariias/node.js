@@ -21,12 +21,12 @@ class UserRepositories {
     return newUser;
   }
 
-  public async getById(userId: number): Promise<IUser | null> {
+  public async getById(userId: string): Promise<IUser | null> {
     const users = await read();
     return users.find((user) => user.id === userId);
   }
 
-  public async updateById(userId: number, data: IUser): Promise<IUser> {
+  public async updateById(userId: string, data: IUser): Promise<IUser> {
     const users = await read();
     const user = users.findIndex((user) => user.id === userId);
 
@@ -37,7 +37,7 @@ class UserRepositories {
 
     return users[user];
   }
-  public async deleteById(userId: number) {
+  public async deleteById(userId: string) {
     const users = await read();
     const user = users.findIndex((user) => user.id === userId);
 

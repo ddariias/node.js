@@ -9,14 +9,14 @@ class UserService {
   public async create(data: Partial<IUser>) {
     return await userRepositories.create(data);
   }
-  public async getById(userId: number): Promise<IUser> {
+  public async getById(userId: string): Promise<IUser> {
     const user = await userRepositories.getById(userId);
     if (!user) {
       throw new ApiError("User not found", 404);
     }
     return user;
   }
-  public async updateById(userId: number, data: IUser): Promise<IUser> {
+  public async updateById(userId: string, data: IUser): Promise<IUser> {
     if (!data.name || data.name.length < 2) {
       throw new ApiError("User name should be more than 2 symbols", 400);
     }
@@ -28,7 +28,7 @@ class UserService {
     }
     return await userRepositories.updateById(userId, data);
   }
-  public async deleteById(userId: number) {
+  public async deleteById(userId: string) {
     return await userRepositories.deleteById(userId);
   }
 }
