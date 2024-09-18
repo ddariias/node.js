@@ -1,48 +1,22 @@
 import { IUser } from "../interfaces/user.interface";
-import { read, write } from "../services/fs.users.service";
+import { User } from "../models/user.model";
 
 class UserRepositories {
   public async getAll(): Promise<IUser[]> {
-    return await read();
+    return await User.find({});
   }
 
   public async create(data: Partial<IUser>): Promise<IUser> {
-    const users = await read();
-
-    const newUser = {
-      id: users.length ? users[users.length - 1]?.id + 1 : 1,
-      name: data.name,
-      email: data.email,
-      password: data.password,
-    };
-    users.push(newUser);
-    await write(users);
-
-    return newUser;
+    return await User.create(data)
   }
 
   public async getById(userId: string): Promise<IUser | null> {
-    const users = await read();
-    return users.find((user) => user.id === userId);
+    return {} as IUser;
   }
 
   public async updateById(userId: string, data: IUser): Promise<IUser> {
-    const users = await read();
-    const user = users.findIndex((user) => user.id === userId);
-
-    users[user].name = data.name;
-    users[user].email = data.email;
-    users[user].password = data.password;
-    await write(users);
-
-    return users[user];
+    return {} as IUser;
   }
-  public async deleteById(userId: string) {
-    const users = await read();
-    const user = users.findIndex((user) => user.id === userId);
-
-    users.splice(user, 1);
-    await write(users);
-  }
+  public async deleteById(userId: string) {}
 }
 export const userRepositories = new UserRepositories();
