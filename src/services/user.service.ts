@@ -17,15 +17,6 @@ class UserService {
     return user;
   }
   public async updateById(userId: string, data: IUser): Promise<IUser> {
-    if (!data.name || data.name.length < 2) {
-      throw new ApiError("User name should be more than 2 symbols", 400);
-    }
-    if (!data.email.includes("@")) {
-      throw new ApiError("Email should be contain @", 400);
-    }
-    if (!data.password) {
-      throw new ApiError("Password should be ", 400);
-    }
     return await userRepositories.updateById(userId, data);
   }
   public async deleteById(userId: string) {

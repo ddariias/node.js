@@ -11,12 +11,14 @@ class UserRepositories {
   }
 
   public async getById(userId: string): Promise<IUser | null> {
-    return {} as IUser;
+    return await User.findById(userId);
   }
 
   public async updateById(userId: string, data: IUser): Promise<IUser> {
-    return {} as IUser;
+    return await User.findByIdAndUpdate(userId, data, {new:true});
   }
-  public async deleteById(userId: string) {}
+  public async deleteById(userId: string) {
+    await User.deleteOne({_id:userId});
+  }
 }
 export const userRepositories = new UserRepositories();
