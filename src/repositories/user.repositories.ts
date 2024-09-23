@@ -7,18 +7,21 @@ class UserRepositories {
   }
 
   public async create(data: Partial<IUser>): Promise<IUser> {
-    return await User.create(data)
+    return await User.create(data);
   }
 
   public async getById(userId: string): Promise<IUser | null> {
     return await User.findById(userId);
   }
+  public async getByEmail(email: string): Promise<IUser | null> {
+    return await User.findOne({ email }).select("+password");
+  }
 
   public async updateById(userId: string, data: IUser): Promise<IUser> {
-    return await User.findByIdAndUpdate(userId, data, {new:true});
+    return await User.findByIdAndUpdate(userId, data, { new: true });
   }
   public async deleteById(userId: string) {
-    await User.deleteOne({_id:userId});
+    await User.deleteOne({ _id: userId });
   }
 }
 export const userRepositories = new UserRepositories();

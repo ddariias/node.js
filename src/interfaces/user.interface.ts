@@ -8,3 +8,5 @@ export interface IUser {
   age: number;
   role: RoleEnum;
 }
+
+export interface ILogin extends Pick<IUser, "email" | "password"> {}
