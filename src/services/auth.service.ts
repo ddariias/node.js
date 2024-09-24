@@ -1,8 +1,10 @@
+import { EmailEnum } from "../enums/email.enum";
 import { ApiError } from "../errors/api.error";
 import { ITokenPair, ITokenPayload } from "../interfaces/token.interface";
 import { ILogin, IUser } from "../interfaces/user.interface";
 import { tokenRepositories } from "../repositories/token.repositories";
 import { userRepositories } from "../repositories/user.repositories";
+import { emailService } from "./email.service";
 import { passwordService } from "./password.service";
 import { tokenService } from "./token.service";
 
@@ -20,6 +22,10 @@ class AuthService {
       role: user.role,
     });
     await tokenRepositories.create({ ...tokens, _userId: user._id });
+
+    await emailService.sendMail("dashadidyk41@gmail.com", EmailEnum.WELCOME, {
+      name: user.name,
+    });
     return { user, tokens };
   }
   public async login(data: ILogin): Promise<Token> {

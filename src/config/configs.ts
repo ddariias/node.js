@@ -12,4 +12,7 @@ export const configs = {
   JWT_ACCESS_EXPIRATION: process.env.JWT_ACCESS_EXPIRATION,
   JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET,
   JWT_REFRESH_EXPIRATION: process.env.JWT_REFRESH_EXPIRATION,
+
+  MY_EMAIL: process.env.MY_EMAIL,
+  MY_PASSWORD: process.env.MY_PASSWORD,
 };
