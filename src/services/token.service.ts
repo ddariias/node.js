@@ -23,7 +23,6 @@ class TokenService {
   public verifyToken(token: string, type: TokenTypeEnum): ITokenPayload {
     try {
       let secret: string;
-
       switch (type) {
         case TokenTypeEnum.ACCESS:
           secret = configs.JWT_ACCESS_SECRET;

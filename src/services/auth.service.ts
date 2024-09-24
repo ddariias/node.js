@@ -30,7 +30,7 @@ class AuthService {
 
     const isPasswordCorrect = await passwordService.comparePassword(
       data.password,
-      data.email,
+      user.password,
     );
     if (!isPasswordCorrect) {
       throw new ApiError("Invalid password or email", 401);
@@ -54,13 +54,6 @@ class AuthService {
     await tokenRepositories.create({ ...tokens, _userId: payload.userId });
     return tokens;
   }
-
-  // // private async isEmailExistOrThrow(email: string): Promise<void> {
-  // //   const user = await userRepositories.getByEmail(email);
-  // //   if (user) {
-  // //     throw new ApiError("Email already exists", 409);
-  // //   }
-  // }
 }
 
 export const authService = new AuthService();
