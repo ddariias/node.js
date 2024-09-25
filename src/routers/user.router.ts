@@ -8,7 +8,7 @@ const router = Router();
 
 router.get("/", userController.getAll);
 
-router.get("/me", authMiddleware.checkRefreshToken, userController.getMe);
+router.get("/me", authMiddleware.checkAccessToken, userController.getMe);
 router.put("/me", authMiddleware.checkAccessToken, userController.updateMe);
 router.delete("/me", authMiddleware.checkAccessToken, userController.deleteMe);
 router.get(
