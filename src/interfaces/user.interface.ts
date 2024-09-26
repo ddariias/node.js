@@ -9,4 +9,8 @@ export interface IUser {
   role: RoleEnum;
 }
 
-export interface ILogin extends Pick<IUser, "email" | "password"> {}
+export type ILogin = Pick<IUser, "email" | "password">;
+
+export type IForgotPassword = Pick<IUser, "email">;
+
+export type IForgotPasswordSet = Pick<IUser, "password"> & { token: string };

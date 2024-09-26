@@ -1,7 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 
 import { ITokenPayload } from "../interfaces/token.interface";
-import { ILogin, IUser } from "../interfaces/user.interface";
+import {
+  IForgotPassword,
+  IForgotPasswordSet,
+  ILogin,
+  IUser,
+} from "../interfaces/user.interface";
 import { authService } from "../services/auth.service";
 
 class AuthController {
@@ -34,6 +39,33 @@ class AuthController {
 
       const result = await authService.refresh(token, jwtPayload);
       res.status(201).json(result);
+    } catch (e) {
+      next(e);
+    }
+  }
+  public async forgotPasswordSendEmail(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const data = req.body as IForgotPassword;
+      await authService.forgotPasswordSendEmail(data);
+      res.sendStatus(204);
+    } catch (e) {
+      next(e);
+    }
+  }
+  public async forgotPasswordSetNew(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const jwtPayload = req.res.locals.jwtPayload as ITokenPayload;
+      const data = req.body as IForgotPasswordSet;
+      await authService.forgotPasswordSetNew(data, jwtPayload);
+      res.sendStatus(204);
     } catch (e) {
       next(e);
     }

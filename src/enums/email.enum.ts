@@ -1,4 +1,4 @@
 export enum EmailEnum {
-  WELCOME,
-  FORGOT_PASSWORD,
+  WELCOME = "welcome",
+  FORGOT_PASSWORD = "forgot-password",
 }
