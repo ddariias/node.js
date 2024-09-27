@@ -1,4 +1,4 @@
 export enum ActionTokenEnum {
-  FORGOT_PASSWORD = "forgot-password",
+  FORGOT_PASSWORD = "FORGOT_PASSWORD",
   VERIFY_EMAIL = "VARIFY_EMAIL",
 }

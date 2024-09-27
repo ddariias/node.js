@@ -27,7 +27,7 @@ class EmailService {
         defaultLayout: "main",
       },
       viewPath: path.join(process.cwd(), "src", "templates", "views"),
-      extName: ".hbs",
+      extName: ".handlebars",
     };
     this.transporter.use("compile", hbs(hbsOptions));
   }
