@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import { authController } from "../controllers/auth.controller";
+import { ActionTokenEnum } from "../enums/action-token.enum";
 import { authMiddleware } from "../middleware/auth.middleware";
 
 const router = Router();
@@ -15,10 +16,15 @@ router.post(
 );
 
 router.post("/forgot-password", authController.forgotPasswordSendEmail);
-router.post(
+router.put(
   "/forgot-password",
-  authMiddleware.checkActionToken,
+  authMiddleware.checkActionToken(ActionTokenEnum.FORGOT_PASSWORD),
   authController.forgotPasswordSetNew,
+);
+router.post(
+  "/verify",
+  authMiddleware.checkActionToken(ActionTokenEnum.VERIFY_EMAIL),
+  authController.verify,
 );
 
 export const AuthRouter = router;
