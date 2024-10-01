@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 
 import { ITokenPayload } from "../interfaces/token.interface";
 import {
+  IChangePassword,
   IForgotPassword,
   IForgotPasswordSet,
   ILogin,
@@ -74,6 +75,17 @@ class AuthController {
     try {
       const jwtPayload = req.res.locals.jwtPayload as ITokenPayload;
       await authService.verify(jwtPayload);
+      res.sendStatus(204);
+    } catch (e) {
+      next(e);
+    }
+  }
+  public async changePassword(req: Request, res: Response, next: NextFunction) {
+    try {
+      const jwtPayload = req.res.locals.jwtPayload as ITokenPayload;
+      const data = req.body as IChangePassword;
+
+      await authService.changePassword(jwtPayload, data);
       res.sendStatus(204);
     } catch (e) {
       next(e);

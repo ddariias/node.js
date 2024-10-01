@@ -3,6 +3,7 @@ import { EmailEnum } from "../enums/email.enum";
 import { ApiError } from "../errors/api.error";
 import { ITokenPair, ITokenPayload } from "../interfaces/token.interface";
 import {
+  IChangePassword,
   IForgotPassword,
   IForgotPasswordSet,
   ILogin,
@@ -123,6 +124,22 @@ class AuthService {
       type: ActionTokenEnum.VERIFY_EMAIL,
       _userId: jwtPayload.userId,
     });
+  }
+  public async changePassword(
+    jwtPayload: ITokenPayload,
+    data: IChangePassword,
+  ): Promise<void> {
+    const user = await userRepositories.getById(jwtPayload.userId);
+    const isPasswordCorect = await passwordService.comparePassword(
+      data.oldPassword,
+      user.password,
+    );
+    if (!isPasswordCorect) {
+      throw new ApiError("Invalid password", 400);
+    }
+    const password = await passwordService.hashPassword(data.password);
+    await userRepositories.updateById(jwtPayload.userId, { password });
+    await tokenRepositories.deleteByParams({ _userId: jwtPayload.userId });
   }
 }
 

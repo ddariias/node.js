@@ -22,4 +22,9 @@ export class UserValidator {
     name: this.name,
     age: this.age,
   });
+
+  public static changePassword = joi.object({
+    oldPassword: this.password.required(),
+    password: this.password.required(),
+  });
 }
