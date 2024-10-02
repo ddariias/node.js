@@ -15,4 +15,4 @@ const handler = async () => {
   console.log(`Deleted ${deleteCount}`);
 };
 
-export const removeOldTokensCronJob = new CronJob("* * * * * *", handler);
+export const removeOldTokensCronJob = new CronJob("* 1 * * 9 *", handler);

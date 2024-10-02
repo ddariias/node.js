@@ -9,4 +9,8 @@ export const emailConstants = {
     subject: "Forgot password",
     template: "forgot-password",
   },
+  [EmailEnum.OLD_VISIT]: {
+    subject: "Old visit",
+    template: "old-visit",
+  },
 };

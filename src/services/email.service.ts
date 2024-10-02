@@ -38,7 +38,8 @@ class EmailService {
   ): Promise<void> {
     const { subject, template } = emailConstants[type];
     const options = { to, subject, template, context };
-    await this.transporter.sendMail(options);
+    console.log(options);
+    // await this.transporter.sendMail(options);
   }
 }
 
